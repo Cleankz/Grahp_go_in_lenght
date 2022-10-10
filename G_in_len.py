@@ -123,12 +123,10 @@ class SimpleGraph:
         chouse_vertex.Hit = True
         visited.append(chouse_vertex)
         if self.IsEdge(VFrom,VTo):
+            visited.append(self.vertex[VTo])
             for i in range(len(self.vertex)):
                 self.vertex[i].Hit = False
             return visited
-        for i in range(len(self.vertex)):
-            if self.vertex[i] == chouse_vertex:
-                VFrom = i
 
         for i in range(len(self.m_adjacency[VFrom])):
             if self.m_adjacency[VFrom][i] == 1 and self.vertex[i].Hit is False:
@@ -136,7 +134,12 @@ class SimpleGraph:
 
         if len(queue) != 0:
             chouse_vertex = queue[0]
+            chouse_vertex.Hit = True
             queue.pop(0)
+            for i in range(len(self.vertex)):
+                if self.vertex[i] == chouse_vertex:
+                    VFrom = i
+            return self.BFirstSearch(VFrom, VTo,visited,queue, chouse_vertex)
         if len(queue) == 0 and chouse_vertex.Hit is True:
             for i in range(len(self.vertex)):
                 self.vertex[i].Hit = False
