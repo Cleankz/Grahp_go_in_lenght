@@ -164,6 +164,26 @@ class SimpleGraph:
                         index_way = count_way #  переходим на пробег по нему меняя массив self.m_adjacency[index_way]
                         count_way = -1 #  обнуляем счетчик ребер  для очередного цикла поиска пути self.m_adjacency[index_way]
                         break
+    def WeakVertices(self):
+        # возвращает список узлов вне треугольников
+        result = []
+        find_edges = []
+        for i in range(len(self.m_adjacency)):
+            count = 0
+            for j in range(len(self.m_adjacency[i])):
+                if self.m_adjacency[i][j] == 1:
+                    count +=1
+            if count == 1:
+                result.append(self.AddVertex[i])
+                break
+            if count >= 2:
+                for j in range(len(self.m_adjacency[i])):
+                    if self.m_adjacency[i][j] == 1:
+                        find_edges.append(self.vertex[j])
+            count = 0
+            for j in range(len(self.m_adjacency[i])):
+        
+        return []
 
 
     # def BFirstSearch(self, VFrom, VTo,visited,queue,chouse_vertex):
