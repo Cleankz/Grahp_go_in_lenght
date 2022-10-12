@@ -1,5 +1,5 @@
 class Vertex:
-    
+
     def __init__(self, val):
         self.Value = val
         self.Hit = False
@@ -168,23 +168,84 @@ class SimpleGraph:
         # возвращает список узлов вне треугольников
         result = []
         find_edges = []
+        for x in range(len(self.vertex)):
+            find_edges.append([])
         for i in range(len(self.m_adjacency)):
             count = 0
             for j in range(len(self.m_adjacency[i])):
                 if self.m_adjacency[i][j] == 1:
                     count +=1
-            if count == 1:
-                result.append(self.AddVertex[i])
-                break
+            # if count <= 1:
+            #     result.append(self.vertex[i])
+            #     break
             if count >= 2:
                 for j in range(len(self.m_adjacency[i])):
                     if self.m_adjacency[i][j] == 1:
-                        find_edges.append(self.vertex[j])
-            count = 0
-            for j in range(len(self.m_adjacency[i])):
-        
-        return []
+                        find_edges[i].append(j)
+        # for i in range(len(find_edges[i])):
+        #     for j in range(len(find_edges)):
+        #         if find_edges[i]
+        # for i in range(len(find_edges[i])):
+        #     for j in range(len(self.m_adjacency[i])):
+        #         if self.m_adjacency[i][j] == 1 and (j in find_edges[i]):
+        for i in range(len(find_edges)):
+            done = False
+            for j in range(len(find_edges[i])):
+                num = find_edges[i][j]
+                for k in range(len(self.vertex)):
+                    if (k  in find_edges[i]) and self.IsEdge(k,num) and k != i and k!= num:
+                        done = True
+                        break
+            if done is False:
+                result.append(self.vertex[i])
+        return result
+        # for i in range(len(self.vertex)):
+        #     for j in range(len(find_edges[i])):
+        #         if find_edges[i][j] != j and self.IsEdge(j,find_edges[i][j]) is True:
+        #             find_edges.pop(i)
+        #             break
 
+        # for j in range(len(find_edges)):
+        #     done = False
+        #     if len(find_edges[j]) == 1:
+        #         break
+        #     if len(find_edges[j]) == 0:
+        #         break
+        #     for i in range(1,len(find_edges[j])-1):
+        #         a = find_edges[j][0]
+        #         if self.IsEdge(a,find_edges[j][i]):
+        #             done = True
+        #             break
+        #         else:
+        #             find_edges[j].pop(0)
+        #     if done == False:
+        #         result.append(self.vertex[j])
+# graff = SimpleGraph(9)
+# graff.AddVertex(0)
+# graff.AddVertex(1)
+# graff.AddVertex(2)
+# graff.AddVertex(3)
+# graff.AddVertex(4)
+# graff.AddVertex(5)
+# graff.AddVertex(6)
+# graff.AddVertex(7)
+# graff.AddVertex(8)
+# graff.AddVertex(9)
+# graff.AddEdge(0,1)
+# graff.AddEdge(0,2)
+# graff.AddEdge(0,4)
+# graff.AddEdge(1,2)
+# graff.AddEdge(1,3)
+# graff.AddEdge(2,5)
+# graff.AddEdge(2,3)
+# graff.AddEdge(4,5)
+# graff.AddEdge(5,6)
+# graff.AddEdge(5,7)
+# graff.AddEdge(6,7)
+# graff.AddEdge(7,8)
+
+# print(graff.WeakVertices())
+# print(graff.WeakVertices())
 
     # def BFirstSearch(self, VFrom, VTo,visited,queue,chouse_vertex):
     #     # узлы задаются позициями в списке vertex
